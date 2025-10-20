@@ -69,3 +69,7 @@ You now have:
 - Enforced perimeter rules with logging and diagnostics
 
 This setup demonstrates enterprise-grade security for Azure AI workloads.
+
+---
+
+⬅️ [Back to Setup Instructions](setup.md)
