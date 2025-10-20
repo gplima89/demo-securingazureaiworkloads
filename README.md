@@ -15,85 +15,21 @@ Contoso Corporation is deploying an internal AI-powered assistant using Azure AI
 - **Network Security Perimeter**: Restricts inbound traffic to Foundry, allowing only APIM.
 - **Key Vault & Storage**: Required dependencies for Foundry.
 
-![Architecture Diagram](https://user-images.githubusercontent.com/placeholder/azure-ai-security-arch.png)
+https://user-images.githubusercontent.com/placeholder/azure-ai-security-arch.png
 
-## 🚀 Terraform Deployment
+## ✅ Outcome
 
-Create a file named `main.tf` and paste the following:
+You now have a secure Azure AI deployment:
 
-```hcl
-# Resource Group
-resource "azurerm_resource_group" "demo" {
-  name     = "ai-security-demo-rg"
-  location = "eastus"
-}
+- AI model is protected from public access
+- Only APIM can reach the model
+- All traffic is logged and controlled
 
-# Storage Account
-resource "azurerm_storage_account" "foundry_storage" {
-  name                     = "aifoundrystorage${random_string.suffix.result}"
-  resource_group_name      = azurerm_resource_group.demo.name
-  location                 = azurerm_resource_group.demo.location
-  account_tier             = "Standard"
-  account_replication_type = "LRS"
-}
+## 📎 Resources
 
-# Key Vault
-resource "azurerm_key_vault" "foundry_kv" {
-  name                = "ai-foundry-kv-${random_string.suffix.result}"
-  resource_group_name = azurerm_resource_group.demo.name
-  location            = azurerm_resource_group.demo.location
-  tenant_id           = data.azurerm_client_config.current.tenant_id
-  sku_name            = "standard"
-  purge_protection_enabled = false
-}
+- [Azure AI Foundry NSP Guide](https://learn.microsoft.com/en-us/azure/ai-foundry/how-to/add-foundry-to-network-security-perimeter)
+- [Terraform Registry: azurerm_ai_foundry](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/ai_foundry)
+- [Import Azure OpenAI API into APIM](https://learn.microsoft.com/en-us/azure/api-management/azure-openai-api-from-specification)
+---
 
-# AI Services
-resource "azurerm_ai_services" "ai_base" {
-  name                = "demo-ai-services"
-  resource_group_name = azurerm_resource_group.demo.name
-  location            = azurerm_resource_group.demo.location
-  sku_name            = "S0"
-}
-
-# AI Foundry Hub
-resource "azurerm_ai_foundry" "foundry_hub" {
-  name                = "demo-foundry-hub"
-  resource_group_name = azurerm_resource_group.demo.name
-  location            = azurerm_ai_services.ai_base.location
-  storage_account_id  = azurerm_storage_account.foundry_storage.id
-  key_vault_id        = azurerm_key_vault.foundry_kv.id
-  sku_name            = "S0"
-  public_network_access = "Disabled"
-
-  identity {
-    type = "SystemAssigned"
-  }
-}
-
-# AI Foundry Project
-resource "azurerm_ai_foundry_project" "foundry_project" {
-  name               = "contoso-ai-project"
-  resource_group_name = azurerm_resource_group.demo.name
-  location           = azurerm_ai_foundry.foundry_hub.location
-  ai_foundry_id      = azurerm_ai_foundry.foundry_hub.id
-
-  identity {
-    type = "SystemAssigned"
-  }
-}
-
-# API Management
-resource "random_string" "suffix" {
-  length  = 6
-  numeric = false
-  special = false
-}
-
-resource "azurerm_api_management" "api_gateway" {
-  name                = "ai-secure-apim-${random_string.suffix.result}"
-  resource_group_name = azurerm_resource_group.demo.name
-  location            = azurerm_resource_group.demo.location
-  publisher_name      = "Contoso"
-  publisher_email     = "admin@contoso.com"
-  sku_name            = "Developer_1"
-}
+➡️ [Continue to Setup Instructions](setup.md)
