@@ -72,4 +72,4 @@ This setup demonstrates enterprise-grade security for Azure AI workloads.
 
 ---
 
-⬅️ [Back to Setup Instructions](setup.md)
+⬅️ [Back to Setup Instructions](Setup.md)
