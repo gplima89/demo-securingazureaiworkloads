@@ -15,7 +15,8 @@ Contoso Corporation is deploying an internal AI-powered assistant using Azure AI
 - **Network Security Perimeter**: Restricts inbound traffic to Foundry, allowing only APIM.
 - **Key Vault & Storage**: Required dependencies for Foundry.
 
-https://user-images.githubusercontent.com/placeholder/azure-ai-security-arch.png
+<img width="667" height="649" alt="image" src="https://github.com/user-attachments/assets/4376636b-119a-4090-8f94-b406374f2488" />
+
 
 ## ✅ Outcome
 
