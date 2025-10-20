@@ -32,4 +32,4 @@ You now have a secure Azure AI deployment:
 - [Import Azure OpenAI API into APIM](https://learn.microsoft.com/en-us/azure/api-management/azure-openai-api-from-specification)
 ---
 
-➡️ [Continue to Setup Instructions](setup.md)
+➡️ [Continue to Setup Instructions](Setup.md)
