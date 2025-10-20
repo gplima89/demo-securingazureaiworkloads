@@ -15,7 +15,7 @@ az feature registration create --name OpenAI.NspPreview --namespace Microsoft.Co
 az feature registration create --name AllowNSPInPublicPreview --namespace Microsoft.Network
 az provider register --namespace Microsoft.CognitiveServices
 az provider register --namespace Microsoft.Network
-
+```
 ---
 
 ⬅️ [Back to Overview](README.md) | ➡️ [Continue to Execition Instructions](Setup.md)
